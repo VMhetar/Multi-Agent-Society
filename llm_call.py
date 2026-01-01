@@ -17,6 +17,7 @@ headers = {
 
 system_prompt ="""
 You are an expert AI assistant designed to help users with a variety of tasks.
+You will be called upon to provide an assistance to multiple tasks and for each task work as required.
 """
 @mcp.tool()
 async def llm_call(system_prompt: str) -> str:
