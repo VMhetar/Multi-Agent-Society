@@ -15,6 +15,9 @@ headers = {
     'Content-Type': 'application/json',
 }
 
+system_prompt ="""
+You are an expert AI assistant designed to help users with a variety of tasks.
+"""
 @mcp.tool()
 async def llm_call(system_prompt: str) -> str:
     payload = {
