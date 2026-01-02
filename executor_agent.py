@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, Any, Optional
 
-from schemas import RESEARCH_STEP_SCHEMA
+from schemas import RESEARCH_PLAN_SCHEMA
 from llm_call import llm_call
 from mcp.server.fastmcp import FastMCP
 
@@ -12,7 +12,7 @@ def validate_step(step: Dict[str, Any]) -> Optional[str]:
     Validates that the step conforms to RESEARCH_STEP_SCHEMA.
     Returns error message if invalid, otherwise None.
     """
-    for key, expected_type in RESEARCH_STEP_SCHEMA.items():
+    for key, expected_type in RESEARCH_PLAN_SCHEMA.items():
         if key not in step:
             return f"Missing required field: {key}"
         if not isinstance(step[key], expected_type):
