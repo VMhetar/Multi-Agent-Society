@@ -1,50 +1,26 @@
 import logging
-from typing import Dict, Optional, List, Any
+from typing import Dict, Any, Optional
 
 from llm_call import llm_call
+from schemas import RESEARCH_PLAN_SCHEMA   # ✅ IMPORT SCHEMA
 from mcp.server.fastmcp import FastMCP
 
 
 mcp = FastMCP("Planner-Agent")
 
 
-RESEARCH_SCHEMA: Dict[str, Any] = {
-    "res_id": 1,
-    "res_name": "Research Name",
-    "res_description": "Detailed description of the research task",
-
-    "res_steps": [
-        {
-            "step_number": 1,
-            "step_description": "Atomic, executable research step",
-            "success_criteria": "Objective condition to mark step as complete",
-            "depends_on": []
-        }
-    ],
-
-    "res_uncertainties": [
-        {
-            "unknown": "What data sources are reliable?",
-            "impact": "High",
-            "mitigation": "Executor evaluates source credibility"
-        }
-    ]
-}
-
-
 @mcp.resource(uri="planner/schema")
 def schema_agent_task() -> Dict[str, Any]:
     """
     Exposes the research planning schema.
-    This is a declarative contract used by planner, executor, and debater.
     """
-    return RESEARCH_SCHEMA
+    return RESEARCH_PLAN_SCHEMA   # ✅ USE EXTERNAL SCHEMA
 
 
 @mcp.tool()
 async def plan_agent_task(task_description: str) -> Optional[Dict[str, Any]]:
     """
-    Generates a structured research plan that strictly follows RESEARCH_SCHEMA.
+    Generates a structured research plan that strictly follows RESEARCH_PLAN_SCHEMA.
     """
 
     system_prompt = f"""
@@ -54,7 +30,7 @@ You MUST return ONLY valid JSON.
 Do NOT include explanations, markdown, or commentary.
 
 The output MUST strictly follow this schema:
-{RESEARCH_SCHEMA}
+{RESEARCH_PLAN_SCHEMA}
 
 Task description:
 {task_description}
