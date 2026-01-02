@@ -2,7 +2,7 @@ import logging
 from typing import Dict, Any, Optional
 
 from llm_call import llm_call
-from schemas import RESEARCH_PLAN_SCHEMA   # ✅ IMPORT SCHEMA
+from schemas import RESEARCH_PLAN_SCHEMA 
 from mcp.server.fastmcp import FastMCP
 
 
@@ -14,7 +14,7 @@ def schema_agent_task() -> Dict[str, Any]:
     """
     Exposes the research planning schema.
     """
-    return RESEARCH_PLAN_SCHEMA   # ✅ USE EXTERNAL SCHEMA
+    return RESEARCH_PLAN_SCHEMA   
 
 
 @mcp.tool()
